@@ -27,5 +27,9 @@ export const rules: Required<ModuleOptions>["rules"] = [
                 transpileOnly: true
             }
         }
+    },
+    {
+        test: /\.(svg|png|jpg|gif)$/,
+        type: "asset/inline"
     }
 ];
