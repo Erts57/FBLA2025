@@ -7,7 +7,7 @@ import Game from "./game";
 
 const PHASER_CONFIG: Phaser.Types.Core.GameConfig = {
     parent: "stage",
-    backgroundColor: 0x6660bf,
+    backgroundColor: 0x77dcac,
     type: WEBGL,
 
     width: Width,
@@ -25,10 +25,7 @@ const PHASER_CONFIG: Phaser.Types.Core.GameConfig = {
     physics: {
         default: "arcade",
         arcade: {
-            debug:
-                process.env.BLOOPS_CLIENT_DEBUG_MODE === "false"
-                    ? false
-                    : Boolean(process.env.BLOOPS_CLIENT_DEBUG_MODE),
+            debug: true,
             gravity: { x: 0, y: 0 }
         }
     },

@@ -1,3 +1,7 @@
+import { Game } from "phaser";
+import _ from "lodash";
+
+import PHASER_CONFIG from "./scripts/config";
 import "./index.scss";
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
+const game: Game = new Game(PHASER_CONFIG);

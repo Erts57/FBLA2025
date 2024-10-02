@@ -1,7 +1,7 @@
-//import type { IPlayer } from "./player/player";
+import type { IPlayer } from "./player/player";
 
 interface GameState {
-    clientPlayer: any | null;
+    player: IPlayer | null;
     level: any; // TODO
 }
 
@@ -10,7 +10,7 @@ interface GameState {
  * They cannot be changed by mods or directly by the server.
  */
 const gameState: GameState = {
-    clientPlayer: null,
+    player: null,
     level: null
 };
 

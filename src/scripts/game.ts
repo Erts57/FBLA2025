@@ -107,7 +107,7 @@ export interface IGame extends Phaser.Scene {
      * Preload assets for this scene.
      * Called when the scene starts.
      */
-    preload(): void;
+    preload(): Promise<Phaser.Loader.LoaderPlugin[]>;
 
     /**
      * Create the main menu objects for this scene.
@@ -138,4 +138,97 @@ export interface IGame extends Phaser.Scene {
      * @param screen The screen to destroy.
      */
     destroy(screen: Screen): void;
+}
+
+export default class Game extends Phaser.Scene implements IGame {
+    public screen: Screen = Screen.MAIN_MENU;
+    public width = Width;
+    public height = Height;
+    public halfWidth = Width / 2;
+    public halfHeight = Height / 2;
+    public mouse?: Phaser.Input.Pointer;
+    public mouseOverUI = false;
+    public controls: Controls | null = null;
+    public mainCamera?: Phaser.Cameras.Scene2D.Camera;
+    public UIGroup?: Phaser.GameObjects.Group;
+    public playerGroup?: Phaser.GameObjects.Group;
+    public robotsGroup?: Phaser.GameObjects.Group;
+    public levelGroups?: LevelGroups;
+    public shadowPipelineInstance?: DropShadowPipelinePlugin;
+    public screenObjects: ScreenObjects = {
+        mainMenu: [],
+        death: []
+    };
+
+    constructor() {
+        super({ key: "Game" });
+    }
+
+    public async preload(): Promise<Phaser.Loader.LoaderPlugin[]> {
+        this.mouse = this.input.mousePointer;
+
+        this.controls = this.input.keyboard!.addKeys({
+            W: Phaser.Input.Keyboard.KeyCodes.W,
+            UP: Phaser.Input.Keyboard.KeyCodes.UP,
+            S: Phaser.Input.Keyboard.KeyCodes.S,
+            DOWN: Phaser.Input.Keyboard.KeyCodes.DOWN,
+            A: Phaser.Input.Keyboard.KeyCodes.A,
+            LEFT: Phaser.Input.Keyboard.KeyCodes.LEFT,
+            D: Phaser.Input.Keyboard.KeyCodes.D,
+            RIGHT: Phaser.Input.Keyboard.KeyCodes.RIGHT,
+            E: Phaser.Input.Keyboard.KeyCodes.E,
+            ESC: Phaser.Input.Keyboard.KeyCodes.ESC
+        }) as Controls;
+
+        this.mainCamera = this.cameras.main;
+
+        this.UIGroup = this.add.group();
+        this.playerGroup = this.add.group();
+        this.robotsGroup = this.add.group();
+        this.levelGroups = {
+            buildings: this.add.group()
+        };
+
+        this.shadowPipelineInstance = this.plugins.get("rexDropShadowPipeline") as DropShadowPipelinePlugin;
+
+        return new Preload(this).load([], []);
+    }
+
+    public create(): void {
+        this.setScreen(Screen.GAME);
+    }
+
+    public setScreen(screen: Screen): void {
+        this.destroy(this.screen);
+        this.screen = screen;
+        switch (screen) {
+            case Screen.MAIN_MENU:
+                this.createMainMenu();
+                break;
+
+            case Screen.GAME:
+                this.createGameScreen();
+                break;
+
+            case Screen.DEATH:
+                this.createDeathScreen();
+                break;
+        }
+    }
+
+    private createMainMenu(): void {}
+
+    private createGameScreen(): void {
+        this.createPlayer();
+    }
+
+    private createDeathScreen(): void {}
+
+    public createPlayer(): void {
+        gameState.player = new Player(this, this.halfWidth, this.halfHeight);
+    }
+
+    public update(time: number, delta: number): void {}
+
+    public destroy(screen: Screen): void {}
 }
