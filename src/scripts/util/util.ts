@@ -79,14 +79,14 @@ export function quadraticBezier(
  * @param element The parent element to assign the image to.
  */
 export function assignImage(element: HTMLElement) {
-    try {
+    /*try {
         const imageElement: HTMLImageElement = element.getElementsByTagName("img")[0];
 
         const alt: string = imageElement.alt;
         var src: string;
 
         switch (alt) {
-            case "PROFILE_BUTTON_ICON":
+            case "SOMETHING":
                 src = require("../../assets/");
                 break;
 
@@ -100,5 +100,5 @@ export function assignImage(element: HTMLElement) {
         imageElement.src = src;
     } catch (err) {
         console.warn(`No image element found in ${element}. Could not assign image.`);
-    }
+    }*/
 }

@@ -3,7 +3,9 @@ import _ from "lodash";
 import type DropShadowPostFxPipeline from "phaser3-rex-plugins/plugins/dropshadowpipeline";
 
 import type { IGame } from "../game";
-//import Hand, { IHand } from "./hand";
+import Body, { type IBody } from "./body";
+import Hand, { type IHand } from "./hand";
+import Head, { type IHead } from "./head";
 import RenderLayers from "../util/layers";
 import { getImage } from "../util/util";
 import { ShadowSettings } from "../client_constants";
@@ -12,8 +14,10 @@ export interface IPlayer extends Phaser.Physics.Arcade.Sprite {
     readonly scene: IGame;
 
     dead: boolean;
+    readonly mainBody: IBody;
+    readonly head: IHead;
+    readonly hand: IHand;
     readonly buildOverlay: any; // TODO
-    readonly hand: any; // TODO
     playerShadowPipelineInstance: DropShadowPostFxPipeline;
     speed: number;
     canAttack: boolean;
@@ -31,8 +35,10 @@ export interface IPlayer extends Phaser.Physics.Arcade.Sprite {
 export default class Player extends Phaser.Physics.Arcade.Sprite implements IPlayer {
     public readonly scene: IGame;
     public dead: boolean = false;
+    public readonly mainBody: IBody;
+    public readonly head: IHead;
+    public readonly hand: IHand;
     public readonly buildOverlay: any; // TODO
-    public readonly hand: any; // TODO
     public playerShadowPipelineInstance: DropShadowPostFxPipeline;
     public speed: number;
     public canAttack: boolean = true;
@@ -41,27 +47,26 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
     public doneBuilding: boolean = true;
 
     constructor(scene: IGame, x: number, y: number) {
-        super(scene, x, y, "player");
+        super(scene, x, y, "");
         this.scene = scene;
 
+        this.mainBody = new Body(this, getImage("player.body"));
+        this.head = new Head(this, getImage("player.head"));
+        this.hand = new Hand(this, getImage("player.hand"));
         this.buildOverlay; // TODO
-        this.hand; // TODO
 
         this.scene.add.existing(this);
 
         this.playerShadowPipelineInstance = this.scene.shadowPipelineInstance!.add(this, ShadowSettings);
 
-        this.setDepth(RenderLayers.PLAYER);
-
         this.speed = 50;
 
         this.setOrigin(0.5);
-        this.setDisplaySize(128, 128);
 
         this.scene.physics.world.enableBody(this);
         this.setCollideWorldBounds(false);
-        (this.body as Phaser.Physics.Arcade.Body).setCircle(64);
-        (this.body as Phaser.Physics.Arcade.Body).setOffset(0);
+        (this.body as Phaser.Physics.Arcade.Body).setSize(64, 96);
+        (this.body as Phaser.Physics.Arcade.Body).setOffset(-16, -48);
         (this.body as Phaser.Physics.Arcade.Body).setDrag(1000);
         (this.body as Phaser.Physics.Arcade.Body).setMaxVelocity(512);
 
@@ -88,6 +93,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         const speed = (this.speed * 128) / delta;
         this.handleMovement(speed);
+
+        this.mainBody.update();
+        this.head.update();
+        this.hand.position(angleToMouse);
     }
 
     public handleMovement(speed: number): void {
