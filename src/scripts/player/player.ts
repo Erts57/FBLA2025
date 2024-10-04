@@ -6,7 +6,7 @@ import type { IGame } from "../game";
 import Body, { type IBody } from "./body";
 import Hand, { type IHand } from "./hand";
 import Head, { type IHead } from "./head";
-import RenderLayers from "../util/layers";
+import gameState from "../game_state";
 import { getImage } from "../util/util";
 import { ShadowSettings } from "../client_constants";
 
@@ -93,7 +93,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         this.handleMovement(this.speed);
 
-        const speed = this.speed * 128;
+        const speed = (this.speed * 128) / delta;
         this.handleMovement(speed);
 
         this.mainBody.update();
@@ -124,7 +124,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
         const directionY = verticalAxis / magnitude;
 
         // Calculate the player's velocity based on direction and speed.
-        const velocityX = directionX * speed;
+        const velocityX = Math.round(directionX * speed);
         const velocityY = directionY * speed;
 
         // Set the player's velocity.
@@ -132,10 +132,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         if (this.x < 0) {
             this.x = 0;
+        } else if (this.x > gameState.level.map.widthInPixels) {
+            this.x = gameState.level.map.widthInPixels;
         }
 
         if (this.y < 0) {
             this.y = 0;
+        } else if (this.y > gameState.level.map.heightInPixels) {
+            this.y = gameState.level.map.heightInPixels;
         }
     }
 }

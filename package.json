@@ -7,9 +7,7 @@
         "package": "electron-forge package",
         "make": "electron-forge make",
         "publish": "electron-forge publish",
-        "lint": "eslint --ext .ts,.tsx .",
-        "school": "C:\\Users\\clawspj4801\\Downloads\\node-v20.17.0-win-x64\\node-v20.17.0-win-x64\\node.exe npx electron-forge start",
-        "install": "npm install --save-dev @electron-forge/cli@^7.4.0 @electron-forge/maker-deb@^7.4.0 @electron-forge/maker-rpm@^7.4.0 @electron-forge/maker-squirrel@^7.4.0 @electron-forge/maker-zip@^7.4.0 @electron-forge/plugin-auto-unpack-natives@^7.4.0 @electron-forge/plugin-fuses@^7.4.0 @electron-forge/plugin-webpack@^7.4.0 @electron/fuses@^1.8.0 @types/lodash@^4.17.4 @types/webpack-env@^1.18.5 @typescript-eslint/eslint-plugin@^5.62.0 @typescript-eslint/parser@^5.62.0 @vercel/webpack-asset-relocator-loader@1.7.3 css-loader@^6.11.0 electron@30.0.6 eslint@^8.57.0 eslint-plugin-import@^2.29.1 fork-ts-checker-webpack-plugin@^7.3.0 node-loader@^2.0.0 sass@^1.79.3 sass-loader@^16.0.2 style-loader@^3.3.4 ts-loader@^9.5.1 ts-node@^10.9.2 typescript@~4.5.4 webpack-node-externals@^3.0.0 && npm install --save electron-squirrel-startup@^1.0.1 lodash@^4.17.21 phaser@latest phaser3-rex-plugins@latest"
+        "lint": "eslint --ext .ts,.tsx ."
     },
     "devDependencies": {
         "@electron-forge/cli": "^7.4.0",
