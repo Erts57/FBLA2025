@@ -93,7 +93,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         this.handleMovement(this.speed);
 
-        const speed = (this.speed * 128) / delta;
+        const speed = this.speed * 128 * delta;
+        console.log(delta, speed, this.speed);
         this.handleMovement(speed);
 
         this.mainBody.update();
