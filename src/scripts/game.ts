@@ -7,6 +7,7 @@ import RenderLayers from "./util/layers";
 import gameState from "./game_state";
 import dom from "./dom";
 import Player from "./player/player";
+import Robot from "./robot/robot";
 import Level from "./level/level";
 import { getImage, assignImage } from "./util/util";
 import { Height, Width } from "./client_constants";
@@ -190,6 +191,9 @@ export default class Game extends Phaser.Scene implements IGame {
             buildings: this.add.group()
         };
 
+        this.physics.add.collider(this.robotsGroup, this.playerGroup);
+        this.physics.add.collider(this.robotsGroup, this.robotsGroup);
+
         this.shadowPipelineInstance = this.plugins.get("rexDropShadowPipeline") as DropShadowPipelinePlugin;
 
         return new Preload(this).load([], []);
@@ -223,6 +227,27 @@ export default class Game extends Phaser.Scene implements IGame {
         gameState.level = new Level(this, 100, 100);
         gameState.level.importMap(gameState.level.returnSolidMap(100, 100, 0));
         this.createPlayer();
+
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
+        new Robot(this, this.halfWidth, this.halfHeight);
     }
 
     private createDeathScreen(): void {}

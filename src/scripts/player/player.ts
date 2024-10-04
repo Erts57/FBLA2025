@@ -63,6 +63,7 @@ export default class Player extends Entity implements IPlayer {
         this.building = false;
 
         super.preUpdate(time, delta);
+        this.hand.position(angleToMouse);
     }
 
     public override handleMovement(speed: number): void {

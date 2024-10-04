@@ -74,7 +74,6 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite implements IEnt
 
         this.mainBody.update();
         this.head.update();
-        this.hand.position(0);
     }
 
     public handleMovement(speed: number): void {
