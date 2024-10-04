@@ -59,7 +59,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         this.playerShadowPipelineInstance = this.scene.shadowPipelineInstance!.add(this, ShadowSettings);
 
-        this.speed = 20;
+        this.speed = 50;
 
         this.setOrigin(0.5);
 
@@ -93,7 +93,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         this.handleMovement(this.speed);
 
-        const speed = this.speed * 128 * delta;
+        const speed = this.speed * delta;
         console.log(delta, speed, this.speed);
         this.handleMovement(speed);
 
