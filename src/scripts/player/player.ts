@@ -76,7 +76,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
     protected preUpdate(time: number, delta: number): void {
         if (this.dead) return;
 
-        //this.scene.mouse!.updateWorldPoint(this.scene.mainCamera!);
+        this.scene.mouse!.updateWorldPoint(this.scene.mainCamera!);
 
         /**
          * Calculates the angle between the player and the mouse pointer
@@ -93,7 +93,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         this.handleMovement(this.speed);
 
-        const speed = this.speed * (128 / delta);
+        const speed = this.speed * 128;
         this.handleMovement(speed);
 
         this.mainBody.update();
