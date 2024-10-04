@@ -59,7 +59,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         this.playerShadowPipelineInstance = this.scene.shadowPipelineInstance!.add(this, ShadowSettings);
 
-        this.speed = 50;
+        this.speed = 20;
 
         this.setOrigin(0.5);
 
@@ -76,6 +76,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
     protected preUpdate(time: number, delta: number): void {
         if (this.dead) return;
 
+        //this.scene.mouse!.updateWorldPoint(this.scene.mainCamera!);
+
         /**
          * Calculates the angle between the player and the mouse pointer
          * in radians.
@@ -91,7 +93,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
 
         this.handleMovement(this.speed);
 
-        const speed = (this.speed * 128) / delta;
+        const speed = this.speed * (128 / delta);
         this.handleMovement(speed);
 
         this.mainBody.update();
@@ -126,7 +128,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite implements IPla
         const velocityY = directionY * speed;
 
         // Set the player's velocity.
-        this.setVelocity(velocityX, velocityY);
+        this.setVelocity(Number.isNaN(velocityX) ? 0 : velocityX, Number.isNaN(velocityY) ? 0 : velocityY);
 
         if (this.x < 0) {
             this.x = 0;

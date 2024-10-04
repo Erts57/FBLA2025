@@ -17,10 +17,10 @@ export const DefaultText: Phaser.Types.GameObjects.Text.TextStyle = {
 } as const;
 
 export const ShadowSettings: DropShadowPipelinePlugin.IConfig = {
-    angle: 270,
+    angle: 0,
     distance: 5,
     shadowColor: 0x000000,
-    alpha: 0.75,
+    alpha: 0.5,
     shadowOnly: false,
     blur: 1,
     quality: 1

@@ -7,6 +7,7 @@ import RenderLayers from "./util/layers";
 import gameState from "./game_state";
 import dom from "./dom";
 import Player from "./player/player";
+import Level from "./level/level";
 import { getImage, assignImage } from "./util/util";
 import { Height, Width } from "./client_constants";
 
@@ -219,6 +220,8 @@ export default class Game extends Phaser.Scene implements IGame {
     private createMainMenu(): void {}
 
     private createGameScreen(): void {
+        gameState.level = new Level(this, 100, 100);
+        gameState.level.importMap(gameState.level.returnSolidMap(100, 100, 0));
         this.createPlayer();
     }
 
@@ -226,6 +229,16 @@ export default class Game extends Phaser.Scene implements IGame {
 
     public createPlayer(): void {
         gameState.player = new Player(this, this.halfWidth, this.halfHeight);
+
+        // Start the main camera following the player
+        this.mainCamera!.startFollow(gameState.player.mainBody, true, 0.1, 0.1);
+
+        this.mainCamera!.setBounds(
+            0,
+            0,
+            gameState.level.map.widthInPixels,
+            gameState.level.map.heightInPixels
+        );
     }
 
     public update(time: number, delta: number): void {}

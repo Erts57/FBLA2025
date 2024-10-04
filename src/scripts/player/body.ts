@@ -35,9 +35,6 @@ export default class Body extends Phaser.GameObjects.Sprite implements IBody {
         this.setOrigin(0.5);
         this.setDisplaySize(64, 64);
 
-        this.scene.physics.world.enable(this);
-        (this.body as Phaser.Physics.Arcade.Body).setCircle(64);
-
         this.bodyShadowPipelineInstance = this.scene.shadowPipelineInstance!.add(this, ShadowSettings);
     }
 

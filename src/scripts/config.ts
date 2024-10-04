@@ -20,6 +20,8 @@ const PHASER_CONFIG: Phaser.Types.Core.GameConfig = {
     expandParent: true,
     dom: { createContainer: false },
 
+    fps: { target: 120, smoothStep: true },
+
     pixelArt: false,
 
     physics: {

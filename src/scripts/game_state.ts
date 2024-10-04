@@ -1,8 +1,9 @@
 import type { IPlayer } from "./player/player";
+import type { ILevel } from "./level/level";
 
 interface GameState {
     player: IPlayer | null;
-    level: any; // TODO
+    level: ILevel;
 }
 
 /**
@@ -11,7 +12,7 @@ interface GameState {
  */
 const gameState: GameState = {
     player: null,
-    level: null
+    level: null as unknown as ILevel
 };
 
 export default gameState;
